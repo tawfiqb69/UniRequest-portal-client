@@ -13,3 +13,7 @@ export const getDashboardPath = (role) => `/dashboard/${role}`;
 
 // The one database name for the client (must match the server's DB_NAME)
 export const DB_NAME = "unirequest-portal";
+
+// Profile photo rules (the server checks again)
+export const PHOTO_MAX_SIZE = 5 * 1024 * 1024;
+export const PHOTO_TYPES = ["image/jpeg", "image/png"];
