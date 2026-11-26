@@ -10,3 +10,6 @@ export const SIGNUP_ROLES = [ROLES.STUDENT, ROLES.REVIEWER];
 
 // Each role has its own dashboard route
 export const getDashboardPath = (role) => `/dashboard/${role}`;
+
+// The one database name for the client (must match the server's DB_NAME)
+export const DB_NAME = "unirequest-portal";
