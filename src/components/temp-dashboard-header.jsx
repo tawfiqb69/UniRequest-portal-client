@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 // TEMPORARY header. The final dashboard layout replaces it in step M5.4.
 const TempDashboardHeader = () => {
@@ -26,9 +27,16 @@ const TempDashboardHeader = () => {
         <span className="text-sm text-muted-foreground">Loading...</span>
       ) : user ? (
         <div className="flex items-center gap-3">
-          <span className="text-sm">
+          {user.image && (
+            <img
+              src={user.image}
+              alt=""
+              className="h-8 w-8 rounded-full object-cover"
+            />
+          )}
+          <Link href="/dashboard/profile" className="text-sm underline">
             {user.name} ({user.role})
-          </span>
+          </Link>
           <Button variant="outline" size="sm" onClick={handleSignOut}>
             Sign Out
           </Button>
