@@ -9,6 +9,7 @@ import { ROLES, getDashboardPath } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import AuthShell from "@/components/auth-shell";
 
 // Check the form. Returns an object with one message per wrong field.
 const validateForm = ({ email, password }) => {
@@ -83,10 +84,10 @@ const SignInForm = () => {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center p-4">
-      <form onSubmit={handleSubmit} noValidate className="w-full max-w-md space-y-5">
+    <AuthShell>
+      <form onSubmit={handleSubmit} noValidate className="w-full space-y-5">
         <div>
-          <h1 className="text-2xl font-semibold">Welcome back</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
           <p className="text-sm text-muted-foreground">Sign in to your UniRequest account.</p>
         </div>
 
@@ -102,7 +103,7 @@ const SignInForm = () => {
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
           />
-          {errors.email && <p id="email-error" className="text-sm text-red-600">{errors.email}</p>}
+          {errors.email && <p id="email-error" className="text-sm text-destructive">{errors.email}</p>}
         </div>
 
         <div className="space-y-2">
@@ -117,7 +118,7 @@ const SignInForm = () => {
             aria-invalid={!!errors.password}
             aria-describedby={errors.password ? "password-error" : undefined}
           />
-          {errors.password && <p id="password-error" className="text-sm text-red-600">{errors.password}</p>}
+          {errors.password && <p id="password-error" className="text-sm text-destructive">{errors.password}</p>}
         </div>
 
         <Button type="submit" className="w-full" disabled={loading}>
@@ -131,7 +132,7 @@ const SignInForm = () => {
           </Link>
         </p>
       </form>
-    </main>
+    </AuthShell>
   );
 };
 

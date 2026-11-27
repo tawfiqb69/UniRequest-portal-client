@@ -9,6 +9,7 @@ import { ROLES, getDashboardPath } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import AuthShell from "@/components/auth-shell";
 
 // The two roles a person can choose (admin is never shown)
 const roleOptions = [
@@ -88,10 +89,10 @@ const SignUpPage = () => {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center p-4">
-      <form onSubmit={handleSubmit} noValidate className="w-full max-w-md space-y-5">
+    <AuthShell>
+      <form onSubmit={handleSubmit} noValidate className="w-full space-y-5">
         <div>
-          <h1 className="text-2xl font-semibold">Create your account</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Create your account</h1>
           <p className="text-sm text-muted-foreground">Join UniRequest to submit or review requests.</p>
         </div>
 
@@ -106,7 +107,7 @@ const SignUpPage = () => {
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
           />
-          {errors.name && <p id="name-error" className="text-sm text-red-600">{errors.name}</p>}
+          {errors.name && <p id="name-error" className="text-sm text-destructive">{errors.name}</p>}
         </div>
 
         <div className="space-y-2">
@@ -121,7 +122,7 @@ const SignUpPage = () => {
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
           />
-          {errors.email && <p id="email-error" className="text-sm text-red-600">{errors.email}</p>}
+          {errors.email && <p id="email-error" className="text-sm text-destructive">{errors.email}</p>}
         </div>
 
         <div className="space-y-2">
@@ -136,7 +137,7 @@ const SignUpPage = () => {
             aria-invalid={!!errors.password}
             aria-describedby="password-help"
           />
-          <p id="password-help" className={errors.password ? "text-sm text-red-600" : "text-sm text-muted-foreground"}>
+          <p id="password-help" className={errors.password ? "text-sm text-destructive" : "text-sm text-muted-foreground"}>
             {errors.password || "At least 6 characters, with one uppercase and one lowercase letter"}
           </p>
         </div>
@@ -174,7 +175,7 @@ const SignUpPage = () => {
           </Link>
         </p>
       </form>
-    </main>
+    </AuthShell>
   );
 };
 

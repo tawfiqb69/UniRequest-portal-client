@@ -130,7 +130,7 @@ const ProfileForm = ({ user, refetch }) => {
         <div className="space-y-1">
           <Label htmlFor="photo">Profile Photo (JPG or PNG, max 5 MB)</Label>
           <Input id="photo" type="file" accept="image/png,image/jpeg" onChange={handlePhotoChange} />
-          {errors.photo && <p className="text-sm text-red-600">{errors.photo}</p>}
+          {errors.photo && <p className="text-sm text-destructive">{errors.photo}</p>}
         </div>
       </div>
 
@@ -148,25 +148,25 @@ const ProfileForm = ({ user, refetch }) => {
       <div className="space-y-2">
         <Label htmlFor="name">Full Name</Label>
         <Input id="name" name="name" value={form.name} onChange={handleChange} aria-invalid={!!errors.name} />
-        {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
+        {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="phone">Phone</Label>
         <Input id="phone" name="phone" value={form.phone} onChange={handleChange} aria-invalid={!!errors.phone} />
-        {errors.phone && <p className="text-sm text-red-600">{errors.phone}</p>}
+        {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="department">Department</Label>
         <Input id="department" name="department" value={form.department} onChange={handleChange} aria-invalid={!!errors.department} />
-        {errors.department && <p className="text-sm text-red-600">{errors.department}</p>}
+        {errors.department && <p className="text-sm text-destructive">{errors.department}</p>}
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="universityId">{idLabel}</Label>
         <Input id="universityId" name="universityId" value={form.universityId} onChange={handleChange} aria-invalid={!!errors.universityId} />
-        {errors.universityId && <p className="text-sm text-red-600">{errors.universityId}</p>}
+        {errors.universityId && <p className="text-sm text-destructive">{errors.universityId}</p>}
       </div>
 
       <Button type="submit" disabled={saving}>
