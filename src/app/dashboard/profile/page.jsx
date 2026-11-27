@@ -116,7 +116,7 @@ const ProfileForm = ({ user, refetch }) => {
   const shownPhoto = photoPreview || user.image;
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="max-w-xl space-y-5">
+    <form onSubmit={handleSubmit} noValidate className="max-w-xl space-y-5 rounded-xl border bg-card p-6 shadow-card">
       <h1 className="text-2xl font-semibold">Update Profile</h1>
 
       <div className="flex items-center gap-4">
