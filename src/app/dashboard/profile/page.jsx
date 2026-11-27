@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { apiFetch } from "@/lib/api";
@@ -8,6 +8,7 @@ import { ROLES, PHOTO_MAX_SIZE, PHOTO_TYPES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Image from "next/image";
 
 // Check the text fields. Returns one message per wrong field.
 const validateForm = ({ name, phone, department, universityId }) => {
@@ -29,29 +30,18 @@ const validateForm = ({ name, phone, department, universityId }) => {
   return errors;
 };
 
-const ProfilePage = () => {
-  const { data: session, isPending, refetch } = authClient.useSession();
-  const user = session?.user;
-
-  const [form, setForm] = useState({ name: "", phone: "", department: "", universityId: "" });
+const ProfileForm = ({ user, refetch }) => {
+  // The form starts with the user's saved data 
+  const [form, setForm] = useState({
+    name: user.name || "",
+    phone: user.phone || "",
+    department: user.department || "",
+    universityId: user.universityId || "",
+  });
   const [photoFile, setPhotoFile] = useState(null);
   const [photoPreview, setPhotoPreview] = useState("");
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-
-  // Fill the form once, when the session arrives
-  useEffect(() => {
-    if (user && !loaded) {
-      setForm({
-        name: user.name || "",
-        phone: user.phone || "",
-        department: user.department || "",
-        universityId: user.universityId || "",
-      });
-      setLoaded(true);
-    }
-  }, [user, loaded]);
 
   const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -120,9 +110,7 @@ const ProfilePage = () => {
     }
   };
 
-  if (isPending || !user) {
-    return <p className="text-sm text-muted-foreground">Loading profile...</p>;
-  }
+
 
   const idLabel = user.role === ROLES.STUDENT ? "Student ID" : "Staff ID";
   const shownPhoto = photoPreview || user.image;
@@ -133,7 +121,7 @@ const ProfilePage = () => {
 
       <div className="flex items-center gap-4">
         {shownPhoto ? (
-          <img src={shownPhoto} alt="Your profile" className="h-20 w-20 rounded-full object-cover" />
+          <Image src={shownPhoto} alt="Your profile" width={80} height={80} unoptimized className="h-20 w-20 rounded-full object-cover" />
         ) : (
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted text-xl font-semibold">
             {user.name?.charAt(0).toUpperCase()}
@@ -186,6 +174,17 @@ const ProfilePage = () => {
       </Button>
     </form>
   );
+};
+
+const ProfilePage = () => {
+  const { data: session, isPending, refetch } = authClient.useSession();
+
+  // Wait for the session, then show the form with the real data
+  if (isPending || !session?.user) {
+    return <p className="text-sm text-muted-foreground">Loading profile...</p>;
+  }
+
+  return <ProfileForm user={session.user} refetch={refetch} />;
 };
 
 export default ProfilePage;

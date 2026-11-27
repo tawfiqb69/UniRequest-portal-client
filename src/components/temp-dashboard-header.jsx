@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 // TEMPORARY header. The final dashboard layout replaces it in step M5.4.
 const TempDashboardHeader = () => {
@@ -28,9 +29,12 @@ const TempDashboardHeader = () => {
       ) : user ? (
         <div className="flex items-center gap-3">
           {user.image && (
-            <img
+            <Image
               src={user.image}
               alt=""
+              width={32}
+              height={32}
+              unoptimized
               className="h-8 w-8 rounded-full object-cover"
             />
           )}
